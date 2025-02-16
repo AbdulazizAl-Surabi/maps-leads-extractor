@@ -1,104 +1,107 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+# Maps Leads Extractor
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+Ein Next.js-Projekt zur Extraktion von Unternehmens-Leads basierend auf einer Karten-Suche (Google Maps API) und Speicherung in einer Supabase-Datenbank.
 
-## Features
+## 🚀 Features
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+- 🌍 **Google Maps API** zur Unternehmenssuche im Umkreis eines definierten Standortes
+- 📊 **Leads-Verwaltung** mit Speicherung in Supabase
+- 📥 **Datenbank-Anbindung** über Supabase
+- 🔄 **Dynamische Extraktion** mit zufälliger Anzahl an Unternehmen (7-15)
+- ⏳ **Lade-Animation** während der Extraktion
+- 💾 **Speicherung der Daten** in Supabase mit direkter Anzeige in einer Lead-Liste
+- 📂 **Download-Funktion** zum Speichern von Leads als Datei
 
-## Demo
+---
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+## 🛠️ Installation
 
-## Deploy to Vercel
+### 1️⃣ Repository klonen
+```sh
+git clone https://github.com/YOUR_GITHUB_USERNAME/maps-leads-extractor.git
+cd maps-leads-extractor
+```
 
-Vercel deployment will guide you through creating a Supabase account and project.
+### 2️⃣ Abhängigkeiten installieren
+```sh
+npm install
+```
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### 3️⃣ API-Keys & Konfiguration
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+Für den Betrieb der Anwendung werden **API-Keys** benötigt. Der **Supabase API Key** wird in `.env.local` hinterlegt, während der **Google Maps API Key** direkt im Code eingefügt wird.
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+#### 🔹 **Schritt 1: `.env.local` erstellen**
+Erstelle eine `.env.local`-Datei im Hauptverzeichnis des Projekts:
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+```sh
+touch .env.local
+```
 
-## Clone and run locally
+Füge dann folgende Zeilen hinzu:
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+```
+NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
 
-2. Create a Next.js app using the Supabase Starter template npx command
+Ersetze `YOUR_SUPABASE_URL` und `YOUR_SUPABASE_ANON_KEY` mit deinen tatsächlichen Supabase-Zugangsdaten.
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+#### 🔹 **Schritt 2: Google Maps API Key einfügen**
+Der Google Maps API Key muss direkt in die Datei **`components/MapServiceComponent.tsx`** eingefügt werden.
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+Öffne die Datei **`components/MapServiceComponent.tsx`** und ersetze `YOUR_GOOGLE_MAPS_API_KEY` durch deinen tatsächlichen API Key:
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+```tsx
+const script = document.createElement("script");
+script.src =
+  "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places";
+```
 
-3. Use `cd` to change into the app's directory
+ℹ️ **Google Maps API Key erstellen:**  
+Folge dieser Anleitung, um einen Google Maps API Key zu erhalten:  
+🔗 [Google Maps API Key Anleitung (PDF)]([https://www.winorder.com/download/WinOrder-Anleitung-GoogleMaps-ApiKey.pdf](https://www.winorder.com/download/WinOrder-Anleitung-GoogleMaps-ApiKey.pdf))
 
-   ```bash
-   cd with-supabase-app
-   ```
+### 4️⃣ Lokalen Entwicklungsserver starten
+```sh
+npm run dev
+```
 
-4. Rename `.env.example` to `.env.local` and update the following:
+Die Anwendung ist dann unter `http://localhost:3000` erreichbar.
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+---
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+## 📌 Nutzung
 
-5. You can now run the Next.js local development server:
+1️⃣ **Standort & Radius auswählen** – Klicke auf die Karte oder ändere den Radius-Slider.  
+2️⃣ **"Unternehmen suchen"** – Unternehmen in der Umgebung werden extrahiert und angezeigt.  
+3️⃣ **Speicherung in Supabase** – Leads können in die Datenbank gespeichert und später abgerufen werden.  
+4️⃣ **Download-Funktion** – Leads können als Datei heruntergeladen werden.
 
-   ```bash
-   npm run dev
-   ```
+---
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+## 🛠️ Technologien
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+- **Next.js** – Frontend-Framework für React
+- **React** – UI-Komponenten & Hooks
+- **Google Maps API** – Standort- & Unternehmenssuche
+- **Supabase** – Datenbank & Authentifizierung
+- **Tailwind CSS** – Styling
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+---
 
-## Feedback and issues
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+## 🛠️ Fehlerbehebung
 
-## More Supabase examples
+- **Fehlermeldung "Hydration failed"** → Stelle sicher, dass der Google Maps API Key korrekt in **`components/MapServiceComponent.tsx`** gesetzt ist.  
+- **Fehlermeldung "Row-Level Security" in Supabase** → Aktiviere **Row-Level Security** in deiner Supabase-Datenbank für die `leads`-Tabelle.
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+---
+
+## 👨‍💻 Autor
+
+📧 E-Mail: wi22110@lehre.dhbw-stuttgart.de  
+
+---
+
